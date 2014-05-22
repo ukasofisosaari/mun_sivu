@@ -17,3 +17,11 @@ ul {
 ul li {
     margin-top: 10px;
 }
+
+#profiili {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: 2px solid #64A8D1;
+    border-radius: 10px;
+}
