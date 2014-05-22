@@ -14,7 +14,7 @@ font-weight: bold;
 #name {
     float: left;
     margin-left: 10px;
-    padding-top: 10px;
+    padding-top: 30px;
     font-family: Verdana, sans-serif;
 color: #ffffff;
 }
@@ -22,7 +22,7 @@ color: #ffffff;
 #email {
     float: right;
     margin-right: 10px;
-    padding-top: 10px;
+    padding-top: 30px;
     font-family: Verdana, sans-serif;
 color: #ffffff;
 }
@@ -64,8 +64,8 @@ color: #ffffff;
 }
 
 .menu_item {
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     margin-left: -30px;
     margin-right: 10px;
     
@@ -81,13 +81,16 @@ color: #ffffff;
     margin-bottom: 10px;
 }
 
-#linkedin {
+
+.social_buttons {
     float: left;
-    margin-left: 10px;
-    padding-top: 0px;
+    margin-left: 20px;
+    padding-top: 10px;
     font-family: Verdana, sans-serif;
     color: #ffffff;
 }
+
+
 
 #footer {
     position: relative;
