@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $(".right").load("me.html");
+    load_content(".right", "me.html");
     $('#me').css("background-color","#0969A2");
 
     var menu_div_id;
@@ -9,19 +9,19 @@ $(document).ready(function() {
         menu_div_id = $(this).attr('id');
         if( menu_div_id === "me" )
         {
-            $(".right").load("me.html");
+            load_content(".right", "me.html");
         }
         else if( menu_div_id === "projects" )
         {
-            $(".right").load("projects.html");
+            load_content(".right", "projects.html");
         }
         else if( menu_div_id === "resume" )
         {
-            $(".right").load("resume.html");
+            load_content(".right", "resume.html");
         }
         else if( menu_div_id === "contact" )
         {
-            $(".right").load("contact.html");
+            load_content(".right", "contact.html");
         }
         else if( menu_div_id === "server" )
         {
@@ -29,7 +29,7 @@ $(document).ready(function() {
             //$.get( "http://hakala.dy.fi/cgi-bin/hello.cgi", function( data ) {
             //    $(".right").load(data);
             //});
-            $(".right").load("server.html");
+            load_content(".right", "server.html");
         }
     });
     $('.menu_div').mouseover(function() {
@@ -43,3 +43,13 @@ $(document).ready(function() {
     });
     
 });
+
+var load_content = function(element, filename )
+{
+    $(element).load(filename, function( response, status, XMLHttpRequest){
+    if( status == "error" )
+    {
+        $(element).html("Load failed, Opera and Chrome are not supported.")
+    }
+    });
+}
