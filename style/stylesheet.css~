@@ -81,6 +81,18 @@ color: #ffffff;
     margin-bottom: 10px;
 }
 
+.right h4 {
+    font-family: Verdana, sans-serif;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.right p {
+    font-family: Garamond, serif;
+    margin-left: 5px;
+    margin-top: 0px;
+}
+
 #linkedin {
     float: left;
     margin-left: 10px;
