@@ -21,5 +21,13 @@ $(document).ready(function() {
         {
             $(".right").load("contact.html");
         }
+        else if( id === "server" )
+        {
+            //var data;
+            //$.get( "http://hakala.dy.fi/cgi-bin/hello.cgi", function( data ) {
+            //    $(".right").load(data);
+            //});
+            $(".right").load("server.html");
+        }
     });
 });
