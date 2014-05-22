@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $(".right").load("me.html");
+    $('#me').css("background-color","#0969A2");
     $('.menu_div').click(function() {
         $('.menu_div').css("background-color","#64A8D1");
         $(this).css("background-color","#0969A2");
@@ -7,6 +8,10 @@ $(document).ready(function() {
         if( id === "me" )
         {
             $(".right").load("me.html");
+        }
+        else if( id === "projects" )
+        {
+            $(".right").load("projects.html");
         }
         else if( id === "resume" )
         {
