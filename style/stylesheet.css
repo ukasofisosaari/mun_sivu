@@ -11,6 +11,15 @@ a:hover {
 font-weight: bold;
 }
 
+#construction {
+    float: left;
+    margin-left: 40px;
+    padding-top: 15px;
+    font-family: Verdana, sans-serif;
+    color: #ffffff;
+    font-size: 25px;
+}
+
 #name {
     float: left;
     margin-left: 10px;
