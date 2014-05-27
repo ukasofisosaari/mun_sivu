@@ -16,7 +16,7 @@ def main():
     for content_file in content_files:
         var_name = content_file.split('.')[0]
         f = open(content_file)
-        js_content.write("var "+var_name+" = ")
+        js_content.write("var "+var_name+"_html"+" = ")
         for line in f:
             line = line.strip()
             if len(line) != 1:
