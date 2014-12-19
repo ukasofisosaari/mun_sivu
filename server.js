@@ -80,12 +80,12 @@ function parseServerInformation(callback){
    });
 };
 
-function sendJSON(data) {
+function sendJSON(response, data) {
 	 response.writeHead(200, { "Content-type": "application/json" });		
 	 response.end(JSON.stringify(data), "ascii");
 }
 
-function sendHTML(filename) {
+function sendHTML(response, filename) {
 	fs.readFile(filename, function (err, html) {
 		if (err) {
 			console.error(err);
@@ -117,7 +117,7 @@ var server = http.createServer(
 			 // Send a message to console log
 			 console.log('Server information request');
 			 // call selectTemp function to get data from database
-			 parseServerInformation( sendJSON(data));
+			 parseServerInformation(response, sendJSON(data));
 			return;
 		}
 		
@@ -127,7 +127,7 @@ var server = http.createServer(
 			if (query.page){
 				var filename = query.page;
 				console.log('Content requested: ' + filename);
-				sendHTML(filename);
+				sendHTML(response, filename);
 			 }
 			 else{
 				console.log('Content requested but no filename specified');
@@ -141,7 +141,7 @@ var server = http.createServer(
 			 // Send a message to console log
 			 console.log('Server information request');
 			 // call selectTemp function to get data from database
-			 parseServerInformation( sendJSON(data));
+			 parseServerInformation(response, sendJSON(data));
 			return;
 		}
 		// test handle
