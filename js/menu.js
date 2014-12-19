@@ -54,7 +54,6 @@ var load_content = function(element, filename )
 {
 	$.get('/content.html?page='+filename, function(html_content){
 		$(element).html(html_content)});
-	});
 }
 
 var check_file_api = function()
