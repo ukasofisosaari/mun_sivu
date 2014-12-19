@@ -125,13 +125,14 @@ var server = http.createServer(
 		if (pathfile == '/content.html'){
 			 // Check what content was requested.
 			if (query.page){
-            var filename = query.num_obs;
-         }
-			 // Send a message to console log
-			 console.log('Server information request');
-			 // call selectTemp function to get data from database
-			 parseServerInformation( sendJSON(data));
-			return;
+				var filename = query.page;
+				console.log('Content requested: ' + filename);
+				sendHTML(filename);
+			 }
+			 else{
+				console.log('Content requested but no filename specified');
+			 }
+			 return;
 		}
 		
 		// If its server request
