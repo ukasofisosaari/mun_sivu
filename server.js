@@ -20,8 +20,10 @@ function parseServerUptime(callback){
     fs.readFile('/proc/uptime', function sendUptime(err, buffer)
 	{
       if (err){
-         console.error(err);
-         process.exit(1);
+        console.error(err);
+        // Respond to the client
+		response.writeHead(err.status, err.headers);
+		response.end('Error 404 - file not found');
       }
 
       // Read data from file (using fast node ASCII encoding).
@@ -51,8 +53,10 @@ function parseServerInformation(callback){
     fs.readFile('/proc/uptime', function sendServerInformation(err, buffer)
 	{
       if (err){
-         console.error(err);
-         process.exit(1);
+        console.error(err);
+         // Respond to the client
+		response.writeHead(err.status, err.headers);
+		response.end('Error 404 - file not found');
       }
 
       // Read data from file (using fast node ASCII encoding).
@@ -81,6 +85,22 @@ function sendJSON(data) {
 	 response.end(JSON.stringify(data), "ascii");
 }
 
+function sendHTML(filename) {
+	fs.readFile(filename, function (err, html) {
+		if (err) {
+			console.error(err);
+			// Respond to the client
+			response.writeHead(err.status, err.headers);
+			response.end('Error 404 - file not found');
+		}
+		response.writeHeader(200, {"Content-Type": "text/html"});  
+		response.write(html);  
+		response.end();
+	});
+}
+
+
+
 // Setup node http server
 var server = http.createServer(
 	// Our main server function
@@ -93,7 +113,6 @@ var server = http.createServer(
 
 		// If its server request
 		if (pathfile == '/server_uptime.json'){
-			 // Test to see if number of observations was specified as url query
  
 			 // Send a message to console log
 			 console.log('Server information request');
@@ -103,8 +122,20 @@ var server = http.createServer(
 		}
 		
 		// If its server request
+		if (pathfile == '/content.html'){
+			 // Check what content was requested.
+			if (query.page){
+            var filename = query.num_obs;
+         }
+			 // Send a message to console log
+			 console.log('Server information request');
+			 // call selectTemp function to get data from database
+			 parseServerInformation( sendJSON(data));
+			return;
+		}
+		
+		// If its server request
 		if (pathfile == '/server_information.json'){
-			 // Test to see if number of observations was specified as url query
  
 			 // Send a message to console log
 			 console.log('Server information request');

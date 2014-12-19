@@ -52,12 +52,9 @@ $(document).ready(function() {
 
 var load_content = function(element, filename )
 {
-    $(element).load(filename, function( response, status, XMLHttpRequest){
-    if( status == "error" )
-    {
-        $(element).html("Load failed, Opera and Chrome are not supported.")
-    }
-    });
+	$.get('/content.html?page='+filename, function(html_content){
+		$(element).html(html_content)});
+	});
 }
 
 var check_file_api = function()
