@@ -69,7 +69,7 @@ function parseServerInformation(callback){
 		temp = Math.round(temp * 10) / 10;
 
 		// Add date/time to to uptime
-		var uptime_record = :{
+		var uptime_record = {
             unix_time: Date.now(),
             uptime: temp
             };
