@@ -52,31 +52,30 @@ function parseServerInformation(callback){
 	// Below read uptime
     fs.readFile('/proc/uptime', function sendServerInformation(err, buffer)
 	{
-      if (err){
-        console.error(err);
-         // Respond to the client
-		response.writeHead(err.status, err.headers);
-		response.end('Error 404 - file not found');
-      }
+		if (err){
+			console.error(err);
+			 // Respond to the client
+			response.writeHead(err.status, err.headers);
+			response.end('Error 404 - file not found');
+		}
 
-      // Read data from file (using fast node ASCII encoding).
-      var data = buffer.toString('ascii').split(" "); // Split by space
+		// Read data from file (using fast node ASCII encoding).
+		var data = buffer.toString('ascii').split(" "); // Split by space
 
-      // Extract uptime from string
-      var temp  = parseFloat(data[1])/60;
+		// Extract uptime from string
+		var temp  = parseFloat(data[1])/60;
 
-      // Round to one decimal place
-      temp = Math.round(temp * 10) / 10;
+		// Round to one decimal place
+		temp = Math.round(temp * 10) / 10;
 
-      // Add date/time to to uptime
-   	var data = {
-            uptime_record:[{
+		// Add date/time to to uptime
+		var uptime_record = :{
             unix_time: Date.now(),
             uptime: temp
-            }]};
+            };
 
-      // Execute call back with data
-      callback(data);
+        // Execute call back with data
+        callback(uptime_record);
    });
 };
 
