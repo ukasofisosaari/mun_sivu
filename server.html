@@ -1,12 +1,6 @@
+<script language="Javascript" type="text/javascript" src="js/server_information.js"></script>
+
 <h4>This page is under construction</h4>
 <p>Will display information about the server</p>
 
-<div class="server_information" id="uptime">Uptime</div>
-
-<script>
-		 $.getJSON('/server_uptime.json', function load_uptime(data){
-			var uptime = data.uptime;
-			var unix_time = data.unix_time;
-            $('#uptime').HTML("Uptime: " + uptime +" Date: " + unix_time)});
-  }
-</script>
+<div class="server_information" id="uptime">Uptime not available</div>
