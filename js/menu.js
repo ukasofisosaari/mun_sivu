@@ -12,8 +12,8 @@ $(document).ready(function() {
         menu_div_id = $(this).attr('id');
         if( menu_div_id === "me" )
         {
-            $(".right").html(me_html);
-            //load_content(".right", "me.html");
+            //$(".right").html(me_html);
+            load_content(".right", "me.html");
         }
         else if( menu_div_id === "projects" )
         {
