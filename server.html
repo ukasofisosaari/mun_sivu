@@ -7,6 +7,6 @@
 		 $.getJSON('/server_uptime.json', function load_uptime(data){
 			var uptime = data.uptime;
 			var unix_time = data.unix_time;
-            document.getElementById("uptime").innerHTML="Uptime: " + uptime +" Date: " + unix_time});
+            document.getElementById("uptime").innerHTML("Uptime: " + uptime +" Date: " + unix_time)});
   }
 </script>
