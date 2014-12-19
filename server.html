@@ -1,2 +1,10 @@
 <h4>This page is under construction</h4>
 <p>Will display information about the server</p>
+
+<div class="server_information" id="uptime">Uptime</div>
+
+<script>
+		 $.getJSON('/server_uptime.json', function load_uptime(data){
+            document.getElementById("uptime").innerHTML=data};
+  }
+</script>
