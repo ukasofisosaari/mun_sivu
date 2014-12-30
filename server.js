@@ -14,41 +14,9 @@ var nodestatic = require('node-static');
 // Setup static server for current directory
 var staticServer = new nodestatic.Server(".");
 
-// Parse server information such as uptime etc
+
+// Parse server uptime. This function can be copied and used for other information from server.
 function parseServerUptime(callback){
-	// Below read uptime
-    fs.readFile('/proc/uptime', function sendUptime(err, buffer)
-	{
-      if (err){
-        console.error(err);
-        // Respond to the client
-		response.writeHeader(err.status, err.headers);
-		response.end('Error 404 - file not found');
-      }
-
-      // Read data from file (using fast node ASCII encoding).
-      var data = buffer.toString('ascii').split(" "); // Split by space
-
-      // Extract uptime from string
-      var temp  = parseFloat(data[1])/60;
-
-      // Round to one decimal place
-      temp = Math.round(temp * 10) / 10;
-
-      // Add date/time to to uptime
-   	var data = {
-            uptime_record:[{
-            unix_time: Date.now(),
-            uptime: temp
-            }]};
-
-      // Execute call back with data
-      callback(data);
-   });
-};
-
-// Parse server information such as uptime etc
-function parseServerInformation(callback){
 	// Below read uptime
     fs.readFile('/proc/uptime', function sendServerInformation(err, buffer)
 	{
@@ -63,19 +31,19 @@ function parseServerInformation(callback){
 		var data = buffer.toString('ascii').split(" "); // Split by space
 
 		// Extract uptime from string
-		var temp  = parseFloat(data[1])/60;
+		var uptime  = parseFloat(data[1])/60;
 
 		// Round to one decimal place
-		temp = Math.round(temp * 10) / 10;
+		uptime = Math.round(uptime * 10) / 10;
 
 		// Add date/time to to uptime
 		var uptime_record = {
             unix_time: Date.now(),
-            uptime: temp
+            uptime: uptime
             };
 
         // Execute call back with data
-        callback(uptime_record);
+        callback(response, uptime_record);
    });
 };
 
@@ -110,18 +78,8 @@ var server = http.createServer(
 		var url = require('url').parse(request.url, true);
 		var pathfile = url.pathname;
         var query = url.query;
-
-		// If its server request
-		if (pathfile == '/server_uptime.json'){
- 
-			 // Send a message to console log
-			 console.log('Server information request');
-			 // call selectTemp function to get data from database
-			 parseServerInformation(response, sendJSON());
-			return;
-		}
 		
-		// If its server request
+		// If its content page request to server
 		if (pathfile == '/content.html'){
 			 // Check what content was requested.
 			if (query.page){
@@ -135,15 +93,17 @@ var server = http.createServer(
 			 return;
 		}
 		
-		// If its server request
-		if (pathfile == '/server_information.json'){
+        //NOTE: This handling can be used for other server information request, such as temperature sensors.
+		// If its server uptime request to server
+		if (pathfile == '/server_uptime.json'){
  
 			 // Send a message to console log
 			 console.log('Server information request');
 			 // call selectTemp function to get data from database
-			 parseServerInformation(response, sendJSON(data));
+			 parseServerUptime(response, sendJSON());
 			return;
 		}
+
 		// test handle
 		if (pathfile == '/test'){
 			response.writeHeader(200, {'Content-Type': 'text/plain'});
@@ -153,17 +113,6 @@ var server = http.createServer(
 			console.log('test: LOL');
 			return;
 		}
-      
-		// Handler for favicon.ico requests
-		if (pathfile == '/favicon.ico'){
-			response.writeHeader(200, {'Content-Type': 'image/x-icon'});
-			response.end();
-
-			// Optionally log favicon requests.
-			console.log('favicon requested');
-			return;
-		}
-
 
 		else {
 			// Print requested file to terminal
