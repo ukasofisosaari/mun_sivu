@@ -16,9 +16,9 @@ var staticServer = new nodestatic.Server(".");
 
 
 // Parse server uptime. This function can be copied and used for other information from server.
-function parseServerUptime(callback){
+function parseServerUptime(response, callback){
 	// Below read uptime
-    fs.readFile('/proc/uptime', function sendServerInformation(err, buffer)
+    fs.readFile('/proc/uptime', function sendServerInformation(response, err, buffer)
 	{
 		if (err){
 			console.error(err);
