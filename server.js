@@ -22,7 +22,7 @@ function parseServerUptime(callback){
       if (err){
         console.error(err);
         // Respond to the client
-		response.writeHead(err.status, err.headers);
+		response.writeHeader(err.status, err.headers);
 		response.end('Error 404 - file not found');
       }
 
@@ -55,7 +55,7 @@ function parseServerInformation(callback){
 		if (err){
 			console.error(err);
 			 // Respond to the client
-			response.writeHead(err.status, err.headers);
+			response.writeHeader(err.status, err.headers);
 			response.end('Error 404 - file not found');
 		}
 
@@ -80,7 +80,7 @@ function parseServerInformation(callback){
 };
 
 function sendJSON(response, data) {
-	 response.writeHead(200, { "Content-type": "application/json" });		
+	 response.writeHeader(200, { "Content-type": "application/json" });		
 	 response.end(JSON.stringify(data), "ascii");
 }
 
@@ -89,7 +89,7 @@ function sendHTML(response, filename) {
 		if (err) {
 			console.error(err);
 			// Respond to the client
-			response.writeHead(err.status, err.headers);
+			response.writeHeader(err.status, err.headers);
 			response.end('Error 404 - file not found');
 		}
 		response.writeHeader(200, {"Content-Type": "text/html"});  
@@ -116,7 +116,7 @@ var server = http.createServer(
 			 // Send a message to console log
 			 console.log('Server information request');
 			 // call selectTemp function to get data from database
-			 parseServerInformation(response, sendJSON(data));
+			 parseServerInformation(response, sendJSON());
 			return;
 		}
 		
@@ -145,7 +145,7 @@ var server = http.createServer(
 		}
 		// test handle
 		if (pathfile == '/test'){
-			response.writeHead(200, {'Content-Type': 'text/plain'});
+			response.writeHeader(200, {'Content-Type': 'text/plain'});
 			response.end('LOL');
 
 			// Optionally log favicon requests.
@@ -155,7 +155,7 @@ var server = http.createServer(
       
 		// Handler for favicon.ico requests
 		if (pathfile == '/favicon.ico'){
-			response.writeHead(200, {'Content-Type': 'image/x-icon'});
+			response.writeHeader(200, {'Content-Type': 'image/x-icon'});
 			response.end();
 
 			// Optionally log favicon requests.
@@ -175,7 +175,7 @@ var server = http.createServer(
 						sys.error("Error serving " + request.url + " - " + err.message);
 						
 						// Respond to the client
-						response.writeHead(err.status, err.headers);
+						response.writeHeader(err.status, err.headers);
 						response.end('Error 404 - file not found');
 						return;
 						}
