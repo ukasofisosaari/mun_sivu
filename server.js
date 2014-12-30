@@ -80,7 +80,8 @@ function parseServerInformation(callback){
 };
 
 function sendJSON(response, data) {
-	 response.writeHeader(200, { "Content-type": "application/json" });		
+	 response.writeHeader(200, { "Content-type": "application/json" });	
+     response.write(data);	
 	 response.end(JSON.stringify(data), "ascii");
 }
 
