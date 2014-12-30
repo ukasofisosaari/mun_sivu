@@ -4,6 +4,7 @@
 PArse uptime etc information from raspberry pi.
 */
 
+
 // Load node modules
 var fs = require('fs');
 var sys = require('sys');
@@ -15,10 +16,30 @@ var nodestatic = require('node-static');
 var staticServer = new nodestatic.Server(".");
 
 
+function sendJSON(response, json_data) {
+     JSON.stringify(json_data);
+	 response.writeHeader(200, { "Content-type": "application/json" });
+	 response.end(JSON.stringify(json_data), "ascii");
+}
+
+function sendHTML(response, filename) {
+	fs.readFile(filename, function (err, html) {
+		if (err) {
+			console.error(err);
+			// Respond to the client
+			response.writeHeader(err.status, err.headers);
+			response.end('Error 404 - file not found');
+		}
+		response.writeHeader(200, {"Content-Type": "text/html"});  
+		response.write(html);  
+		response.end();
+	});
+}
+
 // Parse server uptime. This function can be copied and used for other information from server.
-function parseServerUptime(response, callback){
+function SendServerUptime(response){
 	// Below read uptime
-    fs.readFile('/proc/uptime', function sendServerInformation(response, err, buffer)
+    fs.readFile('/proc/uptime', function sendServerInformation( err, buffer)
 	{
 		if (err){
 			console.error(err);
@@ -43,31 +64,9 @@ function parseServerUptime(response, callback){
             };
 
         // Execute call back with data
-        callback(response, uptime_record);
+        sendJSON(response, uptime_record);
    });
 };
-
-function sendJSON(response, data) {
-	 response.writeHeader(200, { "Content-type": "application/json" });	
-     response.write(data);	
-	 response.end(JSON.stringify(data), "ascii");
-}
-
-function sendHTML(response, filename) {
-	fs.readFile(filename, function (err, html) {
-		if (err) {
-			console.error(err);
-			// Respond to the client
-			response.writeHeader(err.status, err.headers);
-			response.end('Error 404 - file not found');
-		}
-		response.writeHeader(200, {"Content-Type": "text/html"});  
-		response.write(html);  
-		response.end();
-	});
-}
-
-
 
 // Setup node http server
 var server = http.createServer(
@@ -100,7 +99,7 @@ var server = http.createServer(
 			 // Send a message to console log
 			 console.log('Server information request');
 			 // call selectTemp function to get data from database
-			 parseServerUptime(response, sendJSON());
+			 SendServerUptime(response);
 			return;
 		}
 
