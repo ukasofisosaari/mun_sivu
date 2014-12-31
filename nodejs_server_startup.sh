@@ -18,10 +18,12 @@ case "$1" in
     # The -A indicates, adding of this rule
     sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
     sudo iptables -t nat -A PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8000
-    sudo -u pi forever start $NODESCRIPT/server.js
+    cd $NODESCRIPT
+    sudo -u pi forever start server.js
     ;;
   stop)
-    sudo -u pi forever stop $NODESCRIPT/server.js
+    cd $NODESCRIPT
+    sudo -u pi forever stop server.js
     # The -D indicates, deleting of this rule
     sudo iptables -t nat -D PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
     sudo iptables -t nat -D PREROUTING -i wlan0 -p tcp --dport 80 -j REDIRECT --to-port 8000
