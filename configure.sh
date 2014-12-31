@@ -1,12 +1,13 @@
 #Script for setting up node.js and automatic running of the webpage.
+#Run as sudo
 
 #Install node.js
-#wget http://nodejs.org/dist/v0.10.35/node-v0.10.35.tar.gz
-#tar -xzf node-v0.10.35.tar.gz
-#cd node-v0.10.35
-#./configure
-#make
-#sudo make install
+wget http://nodejs.org/dist/v0.10.35/node-v0.10.35.tar.gz
+tar -xzf node-v0.10.35.tar.gz
+cd node-v0.10.35
+./configure
+make
+make install
 
 #Check version, that it installed correctly
 version=$(node -v 2>&1)
@@ -23,12 +24,12 @@ else
 fi
 
 #Install node.js modules needed
-sudo npm -g install node-static node-forever
+npm -g install node-static node-forever
 
 
 #Redirect port 80 to 8000
-#sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
-#sudo service iptables save
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
+sudo service iptables save
 
 #Add start script to startup
 cat <<EOF > /etc/rc.local
