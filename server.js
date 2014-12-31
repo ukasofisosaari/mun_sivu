@@ -13,7 +13,7 @@ var http = require('http');
 // Use node-static module to server chart for client-side dynamic graph
 var nodestatic = require('node-static');
 // Setup static server for current directory
-var staticServer = new nodestatic.Server(".");
+var staticServer = new nodestatic.Server("/home/pi/mun_sivu/");
 
 
 function sendJSON(response, json_data) {
@@ -77,7 +77,7 @@ var server = http.createServer(
 		var url = require('url').parse(request.url, true);
 		var pathfile = url.pathname;
         var query = url.query;
-		
+		console.log(pathfile)
 		// If its content page request to server
 		if (pathfile == '/content.html'){
 			 // Check what content was requested.
