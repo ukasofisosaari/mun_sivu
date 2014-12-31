@@ -36,6 +36,3 @@ fi
 cp nodejs_server_startup.sh /etc/init.d/.
 chmod u+x /etc/init.d/nodejs_server_startup.sh
 /etc/init.d/nodejs_server_startup.sh start
-
-#Reboot server
-sudo reboot
