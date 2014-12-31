@@ -31,12 +31,9 @@ fi
 #Install node.js modules needed
 npm -g install node-static forever
 
-
-#Redirect port 80 to 8000
-sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
-sudo service iptables save
-
 cp nodejs_server_startup.sh /etc/init.d/.
+chmod u+x /etc/init.d/nodejs_server_startup.sh
+/etc/init.d/nodejs_server_startup.sh start
 
 #Reboot server
 sudo reboot
