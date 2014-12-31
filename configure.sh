@@ -12,24 +12,26 @@ then
     ./configure
     make
     make install
+
+    #Check version, that it installed correctly
+    version=$(node -v 2>&1)
+    should_be="v0.10.35"
+    if [ $version != $should_be ]
+    then
+        
+        echo "Node.js did not install correctly. Try to install manually"
+        echo "Node.js version found is $version"
+        exit 1
+    else
+        cd ..
+        rm node-v0.10.35* -rf
+    fi
+
+    #Install node.js modules needed
+    npm -g install node-static forever
 fi
 
-#Check version, that it installed correctly
-version=$(node -v 2>&1)
-should_be="v0.10.35"
-if [ $version != $should_be ]
-then
-    
-    echo "Node.js did not install correctly. Try to install manually"
-    echo "Node.js version found is $version"
-    exit 1
-else
-    cd ..
-    rm node-v0.10.35* -rf
-fi
 
-#Install node.js modules needed
-npm -g install node-static forever
 
 cp nodejs_server_startup.sh /etc/init.d/.
 chmod u+x /etc/init.d/nodejs_server_startup.sh
