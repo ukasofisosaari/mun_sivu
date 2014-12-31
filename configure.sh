@@ -24,38 +24,14 @@ else
 fi
 
 #Install node.js modules needed
-npm -g install node-static
+npm -g install node-static forever
 
 
 #Redirect port 80 to 8000
 sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8000
 sudo service iptables save
 
-#Add start script to startup
-cat <<EOF > /etc/rc.local
-#!/bin/sh -e
-#
-# rc.local
-#
-# This script is executed at the end of each multiuser runlevel.
-# Make sure that the script will "exit 0" on success or any other
-# value on error.
-#
-# In order to enable or disable this script just change the execution
-# bits.
-#
-# By default this script does nothing.
-
-# Print the IP address
-_IP=$(hostname -I) || true
-if [ "$_IP" ]; then
-  printf "My IP address is %s\n" "$_IP"
-fi
-
-node /home/pi/mun_sivu/server.js
-
-exit 0
-EOF
+cp nodejs_server_startup.sh /etc/init.d/.
 
 #Reboot server
 sudo reboot
