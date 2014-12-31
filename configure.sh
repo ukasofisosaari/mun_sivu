@@ -24,7 +24,7 @@ else
 fi
 
 #Install node.js modules needed
-npm -g install node-static node-forever
+npm -g install node-static
 
 
 #Redirect port 80 to 8000
@@ -52,10 +52,10 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-forever start /home/pi/mun_sivu/server.js
+node /home/pi/mun_sivu/server.js
 
 exit 0
 EOF
 
-#Start the server
-forever start /home/pi/mun_sivu/server.js
+#Reboot server
+sudo reboot
