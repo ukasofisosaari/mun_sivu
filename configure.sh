@@ -1,13 +1,18 @@
 #Script for setting up node.js and automatic running of the webpage.
 #Run as sudo
 
-#Install node.js
-wget http://nodejs.org/dist/v0.10.35/node-v0.10.35.tar.gz
-tar -xzf node-v0.10.35.tar.gz
-cd node-v0.10.35
-./configure
-make
-make install
+install=1
+
+if [ $install -eq 0 ]
+then
+    #Install node.js
+    wget http://nodejs.org/dist/v0.10.35/node-v0.10.35.tar.gz
+    tar -xzf node-v0.10.35.tar.gz
+    cd node-v0.10.35
+    ./configure
+    make
+    make install
+fi
 
 #Check version, that it installed correctly
 version=$(node -v 2>&1)
