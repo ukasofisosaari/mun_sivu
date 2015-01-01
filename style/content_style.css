@@ -27,3 +27,13 @@ ul li {
     border: 2px solid #64A8D1;
     border-radius: 10px;
 }
+
+#url_text {
+    font-family: Verdana, sans-serif;
+    color: #0969A2;
+    text-decoration: none;
+}
+
+#url_text:hover {
+    color: #64A8D1;
+}
