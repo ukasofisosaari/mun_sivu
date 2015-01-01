@@ -5,7 +5,6 @@ $(document).ready(function() {
         $('#server_cpu_model').html("CPU model: " + data.cpu.model);
         $('#server_cpu_speed').html("CPU core speed: " + data.cpu.speed +"MHz");
         $('#server_cpu_cores').html("Number of cores: " + data.cpu.cores);
-        $('#server_hostname').html("Server: " + data.hostname);
-        $('#server_uptime').html("Server: " + data.uptime +"min");
+        $('#server_uptime').html("Server uptime: " + data.uptime +"min");
         $('#server_date').html("Date: " + data.unix_time)});
 });

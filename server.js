@@ -58,7 +58,6 @@ function SendServerInformation(response){
         cpu : cpu,
         os_type: os.type(),
         os_arch: os.arch(),
-        os_hostname: os.hostname(),
         uptime: uptime
         };
 
