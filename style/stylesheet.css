@@ -7,10 +7,6 @@ div {
     border-radius: 10px;
 }
 
-a:hover {
-font-weight: bold;
-}
-
 #construction {
     float: left;
     margin-left: 40px;
@@ -34,6 +30,10 @@ font-weight: bold;
     padding-top: 30px;
     font-family: Verdana, sans-serif;
     color: #ffffff;
+}
+
+#email:hover {
+font-weight: bold;
 }
 
 #header {
@@ -64,8 +64,8 @@ font-weight: bold;
     line-height: 40px;
 }
 
-.menu_item a {
-    text-decoration: none;
+.menu_item:hover {
+    cursor: pointer;
 }
 
 #menu {
