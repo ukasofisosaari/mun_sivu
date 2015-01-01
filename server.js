@@ -10,10 +10,12 @@ var fs = require('fs');
 var sys = require('sys');
 var http = require('http');
 
+var os = require('os');
+
 // Use node-static module to server chart for client-side dynamic graph
 var nodestatic = require('node-static');
 // Setup static server for current directory
-var staticServer = new nodestatic.Server("/home/pi/mun_sivu/");
+var staticServer = new nodestatic.Server(".");
 
 
 function sendJSON(response, json_data) {
@@ -37,35 +39,31 @@ function sendHTML(response, filename) {
 }
 
 // Parse server uptime. This function can be copied and used for other information from server.
-function SendServerUptime(response){
-	// Below read uptime
-    fs.readFile('/proc/uptime', function sendServerInformation( err, buffer)
-	{
-		if (err){
-			console.error(err);
-			 // Respond to the client
-			response.writeHeader(err.status, err.headers);
-			response.end('Error 404 - file not found');
-		}
+function SendServerInformation(response){
 
-		// Read data from file (using fast node ASCII encoding).
-		var data = buffer.toString('ascii').split(" "); // Split by space
+    //Get uptime using the os module
+    var uptime = os.uptime()/60;
+    // Round to one decimal place
+    uptime = Math.round(uptime * 10) / 10;
+    cpus = os.cpus();
+    
+    var cpu = {
+        model : cpus[0].model,
+        cores: cpus.length,
+        speed: cpus[0].speed
+    }
+    // Add date/time to to uptime
+    var uptime_record = {
+        unix_time: Date(),
+        cpu : cpu,
+        os_type: os.type(),
+        os_arch: os.arch(),
+        os_hostname: os.hostname(),
+        uptime: uptime
+        };
 
-		// Extract uptime from string
-		var uptime  = parseFloat(data[1])/60;
-
-		// Round to one decimal place
-		uptime = Math.round(uptime * 10) / 10;
-
-		// Add date/time to to uptime
-		var uptime_record = {
-            unix_time: Date.now(),
-            uptime: uptime
-            };
-
-        // Execute call back with data
-        sendJSON(response, uptime_record);
-   });
+    // Execute call back with data
+    sendJSON(response, uptime_record);
 };
 
 // Setup node http server
@@ -78,8 +76,14 @@ var server = http.createServer(
 		var pathfile = url.pathname;
         var query = url.query;
 		console.log(pathfile)
+        
+        // If its content page request to server
+		if (pathfile == '/'){
+			sendHTML(response, "index.html");
+			 return;
+		}
 		// If its content page request to server
-		if (pathfile == '/content.html'){
+		else if (pathfile == '/content.html'){
 			 // Check what content was requested.
 			if (query.page){
 				var filename = query.page;
@@ -91,20 +95,18 @@ var server = http.createServer(
 			 }
 			 return;
 		}
-		
         //NOTE: This handling can be used for other server information request, such as temperature sensors.
 		// If its server uptime request to server
-		if (pathfile == '/server_uptime.json'){
+		else if (pathfile == '/server_information.json'){
  
 			 // Send a message to console log
 			 console.log('Server information request');
 			 // call selectTemp function to get data from database
-			 SendServerUptime(response);
+			 SendServerInformation(response);
 			return;
 		}
-
 		// test handle
-		if (pathfile == '/test'){
+		else if (pathfile == '/test'){
 			response.writeHeader(200, {'Content-Type': 'text/plain'});
 			response.end('LOL');
 
@@ -112,7 +114,6 @@ var server = http.createServer(
 			console.log('test: LOL');
 			return;
 		}
-
 		else {
 			// Print requested file to terminal
 			console.log('Request from '+ request.connection.remoteAddress +' for: ' + pathfile);
@@ -135,4 +136,4 @@ var server = http.createServer(
 // Enable server
 server.listen(8000);
 // Log message
-console.log('Server running at http://localhost:80');
+console.log('Server running at http://localhost:8000');

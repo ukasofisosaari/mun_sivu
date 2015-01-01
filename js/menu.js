@@ -1,8 +1,8 @@
 
 $(document).ready(function() {
-       
-     //$(".right").html("me.html");    
-    load_content(".right", "me.html");
+    //On the first time we load the main page.
+    load_content( "me.html");
+    //Color me link so that user knows first page is loaded.
     $('#me').css("background-color","#0969A2");
 
     var menu_div_id;
@@ -12,28 +12,23 @@ $(document).ready(function() {
         menu_div_id = $(this).attr('id');
         if( menu_div_id === "me" )
         {
-            //$(".right").html(me_html);
-            load_content(".right", "me.html");
+            load_content( "me.html");
         }
         else if( menu_div_id === "projects" )
         {
-            load_content(".right", "projects.html");
+            load_content( "projects.html");
         }
         else if( menu_div_id === "resume" )
         {
-            load_content(".right", "resume.html");
+            load_content( "resume.html");
         }
         else if( menu_div_id === "contact" )
         {
-            load_content(".right", "contact.html");
+            load_content( "contact.html");
         }
         else if( menu_div_id === "server" )
         {
-            //var data;
-            //$.get( "http://hakala.dy.fi/cgi-bin/hello.cgi", function( data ) {
-            //    $(".right").load(data);
-            //});
-            load_content(".right", "server.html");
+            load_content( "server.html");
         }
     });
 
@@ -50,10 +45,10 @@ $(document).ready(function() {
 
 });
 
-var load_content = function(element, filename )
+var load_content = function( filename )
 {
 	$.get('/content.html?page='+filename, function(html_content){
-		$(element).html(html_content)});
+		$(".right").html(html_content)});
 }
 
 var check_file_api = function()
