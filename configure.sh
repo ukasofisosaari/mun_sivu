@@ -18,7 +18,6 @@ then
     should_be="v0.10.35"
     if [ $version != $should_be ]
     then
-        
         echo "Node.js did not install correctly. Try to install manually"
         echo "Node.js version found is $version"
         exit 1
