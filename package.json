@@ -1,10 +1,9 @@
 {
   "name": "ukasWepPage",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple NodeJS server for serving my personal wep page static pages and for posting dynamic information. Mean to be running on my Raspberry pi",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
@@ -18,12 +17,13 @@
     "Server",
   ],
   "author": "Saku Rautiainen",
-  "license": "BSD-2-Clause",
+  "license": "MIT License",
   "bugs": {
     "url": "https://github.com/ukasofisosaari/mun_sivu/issues"
   },
   "homepage": "http://www.iki.fi/ukas",
   "dependencies": {
-    "node-static": "~0.7.3"
+    "node-static": "0.7.3"
+    "forever": "0.14.0"
   }
 }
