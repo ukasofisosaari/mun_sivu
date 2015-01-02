@@ -7,15 +7,6 @@ div {
     border-radius: 10px;
 }
 
-#construction {
-    float: left;
-    margin-left: 40px;
-    padding-top: 15px;
-    font-family: Verdana, sans-serif;
-    color: #ffffff;
-    font-size: 25px;
-}
-
 #name {
     float: left;
     margin-left: 10px;
@@ -81,7 +72,6 @@ font-weight: bold;
 }
 
 .right {
-    position: relative;
     background-color: white;
     height: 800px;
     width: 78%;

@@ -37,3 +37,20 @@ ul li {
 #url_text:hover {
     color: #64A8D1;
 }
+
+.div_table {
+    width: 95%;
+    float: left;
+    background-color: #64A8D1;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+
+.div_table_cell_1st_column {
+    font-family: Verdana, sans-serif;
+    float: left;
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
